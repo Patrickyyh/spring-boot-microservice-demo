@@ -1,5 +1,6 @@
 package com.yeyuhao1234.OrderService.service;
 import com.yeyuhao1234.OrderService.entity.Order;
+import com.yeyuhao1234.OrderService.external.client.ProductService;
 import com.yeyuhao1234.OrderService.model.OrderRequest;
 import com.yeyuhao1234.OrderService.repository.OrderRepository;
 import lombok.extern.log4j.Log4j2;
@@ -14,10 +15,20 @@ public class OrderServiceImp implements  OrderService{
 
     @Autowired
     private OrderRepository orderRepository;
+    // Order Entity -> save the data with Status Order created
+
+    @Autowired
+    private ProductService productService;
+
 
     @Override
     public long placeOrder(OrderRequest orderRequest) {
         log.info("Placing Order request: {}", orderRequest);
+
+        // Call api by feign.
+        productService.reduceQuantity(orderRequest.getProductId(), orderRequest.getQuantity());
+
+        log.info("Creating Order with created Status");
         Order order = Order.builder()
                 .amount(orderRequest.getTotalAmount())
                 .orderStatus("Created")
@@ -28,7 +39,7 @@ public class OrderServiceImp implements  OrderService{
         order = orderRepository.save(order);
         log.info("Order Place successfully with order Id: {}", order.getId());
         return order.getId();
-        // Order Entity -> save the data with Status Order created
+
         // Product service - Block Products (Reduce quantity)
         // payment service -> payment -> success -> Complete, else
         // Cancelled
