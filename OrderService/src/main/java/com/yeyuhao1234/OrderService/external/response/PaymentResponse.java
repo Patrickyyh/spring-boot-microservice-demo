@@ -1,4 +1,4 @@
-package com.yeyuhao1234.OrderService.external.request;
+package com.yeyuhao1234.OrderService.external.response;
 
 import com.yeyuhao1234.OrderService.model.PaymentMode;
 import lombok.AllArgsConstructor;
@@ -6,14 +6,18 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.Instant;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class PaymentRequest {
-    private long orderId;
-    private long amount;
+public class PaymentResponse {
+    private long paymentId;
+    private String status;
     private PaymentMode paymentMode;
-    private String referenceNumber;
+    private long amount;
+    private Instant paymentDate;
+    private long orderId;
 
 }
