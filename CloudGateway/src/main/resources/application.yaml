@@ -22,8 +22,6 @@ spring:
               args:
                 redis-rate-limiter.replenishRate: 1
                 redis-rate-limiter.burstCapacity: 1
-
-
         - id: PAYMENT-SERVICE
           uri: lb://PAYMENT-SERVICE
           predicates:
@@ -37,7 +35,6 @@ spring:
               args:
                 redis-rate-limiter.replenishRate: 1
                 redis-rate-limiter.burstCapacity: 1
-
         - id : PRODUCT-SERVICE
           uri: lb://PRODUCT-SERVICE
           predicates:
@@ -51,3 +48,19 @@ spring:
               args:
                 redis-rate-limiter.replenishRate: 1
                 redis-rate-limiter.burstCapacity: 1
+
+okta:
+  oauth2:
+    issuer: https://dev-12058945.okta.com/oauth2/default
+    audience: api://default
+    client-id: 0oa7t3yvr7KQ6pJ0Q5d7
+    client-secret: ESNn7UOAy-ct6pAQ-PLR_Wyd6_JJMMYIxa9m84gq
+    scopes: openid, email, profile, offline_access
+
+#okta:
+#  oauth2:
+#    issuer: https://dev-31074102.okta.com/oauth2/default
+#    audience: api://default
+#    client-id: 0oa7t3l9w0PCzDxsG5d7
+#    client-secret: kbFlPr0-H4dqrbvV8iOath457Wg68Sp3hMG4J1I3
+#    scopes: openid, email, profile, offline_access

@@ -18,5 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 
     default void fallback(Exception exception){
         throw new CustomException("Payment Service is not available" ,"UNAVAILABLE",500);
+
     }
 }
